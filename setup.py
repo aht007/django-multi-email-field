@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 here = os.path.abspath(os.path.dirname(__file__))
 
 setup(
-    name='django-multi-email-field',
+    name='dj-multi-email-field',
     version='0.6.2',
     author='Florent Lebreton',
     author_email='florent.lebreton@makina-corpus.com',
