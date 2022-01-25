@@ -17,6 +17,7 @@ jobs:
         os:
           - ubuntu-20.04
         python-version: [3.7, 3.8]
+        toxenv: ['django32', 'django40']
     steps:
     - uses: actions/checkout@v2
     - name: setup python
@@ -29,4 +30,6 @@ jobs:
         pip install pyquery
         pip install coverage
     - name: Run Tests
+      env:
+        TOXENV: ${{ matrix.toxenv }}
       run: tox
