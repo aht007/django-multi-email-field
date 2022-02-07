@@ -5,8 +5,6 @@ on:
     branches:
       - master
   pull_request:
-    branches:
-      - '**'
 
 jobs:
   run_tests:
@@ -14,19 +12,21 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os:
-          - ubuntu-20.04
-        python-version: [3.7, 3.8]
+        os: ["ubuntu-20.04"]
+        python-version: [3.8]
+        toxenv: ["django32", "django40"]
     steps:
-    - uses: actions/checkout@v2
-    - name: setup python
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        pip install tox
-        pip install pyquery
-        pip install coverage
-    - name: Run Tests
-      run: tox
+      - uses: actions/checkout@v2
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          pip install tox
+          pip install pyquery
+          pip install coverage
+      - name: Run Tests
+        env:
+          TOXENV: ${{ matrix.toxenv }}
+        run: tox
